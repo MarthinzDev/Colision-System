@@ -68,7 +68,7 @@ timer[vehicle] = setTimer ( timer1, 12000, 0, source)
      
 addEventHandler( "onVehicleDamage", root, velox)
 
-addEventHandler ( "onVehicleEnter", getRootElement(), velox ) --add an event handler for onVehicleStartEnter
+addEventHandler ( "onVehicleEnter", getRootElement(), velox ) 
 
 function enterv ()
  if getElementData(source,"motordesligando") then
@@ -77,7 +77,7 @@ timer[vehicle] = setTimer ( timer1, 12000, 0, source)
 end
 end
 
-addEventHandler ( "onVehicleEnter", getRootElement(), enterv ) --add an event handler for onVehicleStartEnter
+addEventHandler ( "onVehicleEnter", getRootElement(), enterv ) 
 
 function kilT ()
 if isTimer ( timer[source] ) then 
@@ -131,60 +131,6 @@ function notifyAboutExplosion()
  
  end
 
--- by using getRootElement() as root, it works for any vehicle
+
 addEventHandler("onVehicleExplode", getRootElement(), notifyAboutExplosion)
 
-
-local vip_segundos = 90  -- tempo de vip em segundos
-
-addCommandHandler("darvip", function( p,_, thePlayer)
-	thePlayer = thePlayer and getPlayerFromName(thePlayer) or false
-	if thePlayer then
-		-- armazenar na conta o timestamp de duração do vip
-		setAccountData( getPlayerAccount(thePlayer), "tempo:vip",  getRealTime().timestamp + vip_segundos   )
-	end
-end)
-
--- verificação do vip das contas
-setTimer(function()
-	for i,player in pairs(getElementsByType("player")) do
-		local vip = getAccountData(getPlayerAccount(player), "tempo:vip") -- obter tempo de vip na conta
-		
-		if type(vip) == "number" then -- verificar se existe na conta, isto é, se consta o vip
-			if getRealTime().timestamp  - vip > 0 then -- verifica se o timestamp (segundos atuais) é maior que o tempo de vip
-			
-				outputChatBox("O seu pacote VIP expirou "..tostring(vip).."", player) -- notifica o jogador
-				setAccountData(getPlayerAccount(player), "tempo:vip", false) -- remove da conta o vip
-			end
-		end
-	end
-end, 1000, 0)
---[[
-
-
-function startImageDownload( playerToReceive )
-    fetchRemote ( "https://hashtag.blogfolha.uol.com.br/files/2018/02/meme.jpg", myCallback, "", false, playerToReceive )
-end
-addCommandHandler("g",startImageDownload)
-
-function myCallback( responseData, error, playerToReceive )
-    if error == 0 then
-        triggerClientEvent( playerToReceive, "onClientGotImage", resourceRoot, responseData )
-    end
-end
-
-
-
-function setPedAnimationSpeed(player,anim,speed)
-	triggerClientEvent(player, "animSpeds", player, player,anim,speed)
-end
-
-
-function makePed(thePed)
-	
-	--setPedAnimation(thePed, "ped", "drown")
-		setPedAnimation(thePed,'ped', 'drown', 0, true, true, true)
-	setTimer(setPedAnimationSpeed,60,1,thePed, 'drown', 0)
-end
-addCommandHandler("makemyped", makePed)
---]]
