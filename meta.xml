@@ -1,0 +1,6 @@
+<meta>
+     <script src="server.lua" type="server" cache="false"/>
+     <script src="cliente.lua" type="client" cache="false" />
+     <file src="sound/ov.mp3" />
+     <file src="sound/starter.mp3" />
+</meta>
